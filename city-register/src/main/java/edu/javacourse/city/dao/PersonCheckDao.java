@@ -5,7 +5,8 @@ import edu.javacourse.city.domain.PersonResponse;
 
 public class PersonCheckDao {
 
-    public PersonResponse chechPerson(PersonRequest request) {
+    public PersonResponse checkPerson(PersonRequest request) {
+        return new PersonResponse();
         
     }
 
