@@ -20,6 +20,7 @@ public class PersonCheckDao {
             "and upper(p.given_name) = upper(?) " +
             "and upper(p.patronymic) = upper(?) " +
             "and p.date_of_birth = ? " +
+            "and a.street_code = ?"+
             "and upper(a.building) = upper(?) " +
             "and upper(a.extension) = upper(?) " +
             "and upper(a.apartment) = upper(?)";
