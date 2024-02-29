@@ -8,8 +8,10 @@ public class PersonRequest {
     private String givenName;
     private String patronymic;
     private LocalDate dateOfBirth;
+    private Integer streetCode;
     private String building;
     private String extension;
+    private String apartment;
 
     public String getSurName() {
         return surName;
@@ -57,5 +59,21 @@ public class PersonRequest {
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+
+    public Integer getStreetCode() {
+        return streetCode;
+    }
+
+    public void setStreetCode(Integer streetCode) {
+        this.streetCode = streetCode;
+    }
+
+    public String getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
     }
 }
