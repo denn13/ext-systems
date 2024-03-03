@@ -20,24 +20,41 @@ public class PersonCheckDao {
                     "and upper(p.patronymic) = upper(?) " +
                     "and p.date_of_birth = ? " +
                     "and a.street_code = ? " +
-                    "and upper(a.building) = upper(?) " +
-                    "and upper(a.extension) = upper(?) " +
-                    "and upper(a.apartment) = upper(?)";
+                    "and upper(a.building) = upper(?) ";
 
     public PersonResponse checkPerson(PersonRequest request) throws PersonCheckExeption {
         PersonResponse response = new PersonResponse();
 
-        try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(SQL_REQUEST)) {
+        String sql = SQL_REQUEST;
+        if (request.getExtension() != null) {
+            sql += "and upper(a.extension) = upper(?) ";
+        } else {
+            sql += "and a.extension is null ";
+        }
 
-            stmt.setString(1, request.getSurName());
-            stmt.setString(2, request.getGivenName());
-            stmt.setString(3, request.getPatronymic());
-            stmt.setDate(4, java.sql.Date.valueOf(request.getDateOfBirth()));
-            stmt.setInt(5, request.getStreetCode());
-            stmt.setString(6, request.getBuilding());
-            stmt.setString(7, request.getExtension());
-            stmt.setString(8, request.getApartment());
+        if (request.getApartment() != null) {
+            sql += "and upper(a.apartment) = upper(?)";
+        } else {
+            sql += "and a.apartment is null";
+        }
+
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            int count = 1;
+
+            stmt.setString(count++, request.getSurName());
+            stmt.setString(count++, request.getGivenName());
+            stmt.setString(count++, request.getPatronymic());
+            stmt.setDate(count++, java.sql.Date.valueOf(request.getDateOfBirth()));
+            stmt.setInt(count++, request.getStreetCode());
+            stmt.setString(count++, request.getBuilding());
+            if (request.getExtension() != null) {
+                stmt.setString(count++, request.getExtension());
+            }
+            if (request.getApartment() !=null) {
+                stmt.setString(count++, request.getApartment());
+            }
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
