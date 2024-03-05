@@ -7,7 +7,9 @@ public class Client {
     public static void main(String[] args) throws IOException, InterruptedException {
         for (int i = 0; i < 10; i++) {
             SimpleClient sc = new SimpleClient();
+            sc.start();
         }
+    }
 }
 
 class SimpleClient extends Thread{
