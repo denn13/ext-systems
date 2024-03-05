@@ -12,29 +12,50 @@ public class Server {
 
         while (true) {
             Socket client = socket.accept();
-            handleRequest(client);
+            new SimpleServer(client).start();
         }
 
     }
 
-    private static void handleRequest(Socket client) throws IOException, InterruptedException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+}
 
-        StringBuffer sb = new StringBuffer("Hello ");
-        String userName = br.readLine();
-        System.out.println("Server got string: " + userName);
-        Thread.sleep(2000);
+class SimpleServer extends Thread {
+    private Socket client;
 
-        sb.append(userName);
+    SimpleServer(Socket client) {
+        this.client = client;
+    }
 
-        bw.write(sb.toString());
-        bw.newLine();
-        bw.flush();
 
-        br.close();
-        bw.close();
+    @Override
+    public void run() {
+        handleRequest();
+    }
 
-        client.close();
+    private void handleRequest() {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+
+            StringBuffer sb = new StringBuffer("Hello ");
+            String userName = br.readLine();
+            System.out.println("Server got string: " + userName);
+            Thread.sleep(2000);
+
+            sb.append(userName);
+
+            bw.write(sb.toString());
+            bw.newLine();
+            bw.flush();
+
+            br.close();
+            bw.close();
+
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        } catch (InterruptedException e) {
+            e.printStackTrace(System.out);
+        }
     }
 }
