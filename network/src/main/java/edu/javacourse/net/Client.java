@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class Client {
     public static void main(String[] args) throws IOException, InterruptedException {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             SimpleClient sc = new SimpleClient(i);
             sc.start();
         }
