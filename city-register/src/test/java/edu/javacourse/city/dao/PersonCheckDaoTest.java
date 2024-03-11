@@ -23,6 +23,7 @@ public class PersonCheckDaoTest {
         pr.setBuilding("10");
         pr.setExtension("2");
         pr.setApartment("121");
+        System.out.println(pr.getSurName());
 
         PersonCheckDao dao = new PersonCheckDao();
         PersonResponse ps = dao.checkPerson(pr);

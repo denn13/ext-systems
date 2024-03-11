@@ -70,7 +70,7 @@ public class PersonCheckDao {
     }
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost/city_register",
+        return DriverManager.getConnection("jdbc:postgresql://10.11.12.3/city_register",
                 "postgres","nimda");
     }
 
