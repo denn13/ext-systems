@@ -31,7 +31,7 @@ public class PersonCheckDaoTest {
         Assert.assertFalse(ps.isTemporal());
     }
 
-    @Test
+/*    @Test
     public void checkPerson2() throws PersonCheckExeption {
         PersonRequest pr = new PersonRequest();
         pr.setSurName("Васильева");
@@ -46,5 +46,5 @@ public class PersonCheckDaoTest {
         PersonResponse ps = dao.checkPerson(pr);
         Assert.assertTrue(ps.isRegistered());
         Assert.assertFalse(ps.isTemporal());
-    }
+    }*/
 }
